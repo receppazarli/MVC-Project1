@@ -28,5 +28,33 @@ namespace mvc.Controllers
             return RedirectToAction("Index");
 
         }
+
+        public ActionResult Edit(int id) // Düzenle - Güncelleme
+        {
+            var student = StudentData.Students.Where(o => o.Id == id).FirstOrDefault();
+            return View(student);
+        }
+
+
+        [HttpPost]
+        public ActionResult Edit(Student newStudent) // Düzenle - Güncelleme
+        {
+            Student editStudent = StudentData.Students.Where(o => o.Id == newStudent.Id).FirstOrDefault();
+            editStudent.Name = newStudent.Name;
+            editStudent.DepartmentName = newStudent.DepartmentName;
+            editStudent.EntryYear = newStudent.EntryYear;
+            editStudent.Surname = newStudent.Surname;
+            editStudent.IdentityNumber = newStudent.IdentityNumber;
+            return RedirectToAction("Index");
+
+        }
+
+        public ActionResult Delete(Student newStudent) // Sil 
+        {
+            var student = StudentData.Students.Where(o => o.Id == newStudent.Id).FirstOrDefault();
+            StudentData.Students.Remove(student);
+            return View(student);
+        }
+
     }
 }
