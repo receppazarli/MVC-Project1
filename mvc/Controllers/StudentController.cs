@@ -49,12 +49,18 @@ namespace mvc.Controllers
 
         }
 
-        public ActionResult Delete(Student newStudent) // Sil 
+        public ActionResult Delete(int id) // Sil 
         {
-            var student = StudentData.Students.Where(o => o.Id == newStudent.Id).FirstOrDefault();
-            StudentData.Students.Remove(student);
+            var student = StudentData.Students.Where(o => o.Id == id).FirstOrDefault();
             return View(student);
         }
 
+        [HttpPost]
+        public ActionResult Delete(Student student) // Sil 
+        {
+            Student DeleteStudent = StudentData.Students.Where(o => o.Id == student.Id).FirstOrDefault();
+            StudentData.Students.Remove(DeleteStudent);
+            return RedirectToAction("Index");
+        }
     }
 }
